@@ -19,3 +19,5 @@ class Block:
         print("transactions:", self.transactions)
         print("current hash:", self.generate_hash())
         print("previous hash:", self.previous_hash)
+        print("nonce value:", self.nonce)
+        print("---------------------------------------------")
