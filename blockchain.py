@@ -12,11 +12,11 @@ class Blockchain:
         genesis_block.generate_hash()
         self.chain.append(genesis_block)
 
-    def add_block(self, transactions):
+    def add_block(self, transactions, difficulty):
         previous_hash = (self.chain[len(self.chain)-1]).hash
         new_block = Block(transactions, previous_hash)
-        new_block.generate_hash()
-        # proof = proof_of_work(block)
+        #new_block.generate_hash()
+        new_block.hash = self.proof_of_work(new_block, difficulty)
         self.chain.append(new_block)
 
     def print_blocks(self):
@@ -37,11 +37,11 @@ class Blockchain:
                 return False
         return True
  
-    def proof_of_work(self, block, difficulty=2):
+    def proof_of_work(self, block, difficulty):
         proof = block.generate_hash()
-        while proof[:2] != "0"*difficulty:
+        block.nonce = 0
+        while proof[:difficulty] != "0"*difficulty:
             block.nonce += 1
             proof = block.generate_hash()
-        block.nonce = 0
         return proof
       
